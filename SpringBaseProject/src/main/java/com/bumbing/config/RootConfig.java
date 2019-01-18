@@ -14,7 +14,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
 @MapperScan(basePackages={"com.bumbing.mapper"}) 
-@ComponentScan(basePackages= {"com.bumbing"})
+@ComponentScan(basePackages= {"com.bumbing.*"})
 public class RootConfig {
 	@Bean
 	public DataSource dataSource(){

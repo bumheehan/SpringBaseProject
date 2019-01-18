@@ -7,6 +7,7 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
+		<config>java:com.bumbing.config.RootConfig</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
