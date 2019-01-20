@@ -8,7 +8,13 @@
 	-Junit은 Maven 안하고 로컬추가
 ## 깃 프로젝트 설정할것 
 	-이클립스 UTF 8 설정 </br>
-	-RootConfig 에서 DB 사용자 변경 </br>
+	-RootContext(RootConfig) 에서 DB 사용자 변경 </br>
+	-기본 테스트용 TimeMapper와 homeController가 있음 삭제 후 사용 </br>
+	-모든 패키지 삭제후 사용
+		-> 몇가지 예제로 넣어둔거임
+	-프로젝트 속성 -Web Project Settings - Path를  / 로 바꿈 </br>
+	-JUnit 테스트로 datasource 확인
+	-log4jdbc를 원치않을경우 아래 스프링설정 관련 태그 가기
 
 
 
@@ -290,10 +296,12 @@
 			(3) Mapper
 				XML이나 JAVA로 Mapper를 만듦
 				Mapper는 SQL을 입력하고 결과를 받는 객체
-
-				MyBatis에서 Mapper를 인식하도록 root-context설정이 필요함
-
-				1> root-context.xml에서 NameSpaces클릭 Mybatis-spring 클릭
+				
+				1> Mapper를 bean에 등록하려면 다음 과정이 필요 
+					-root-context.xml에서 NameSpaces클릭 Mybatis-spring 클릭
+					-RootContext에 다음 추가
+						<mybatis-spring:scan base-package="com.bumbing.mapper"/>
+					-Mapper Interface가 TimeMapper일경우 bean 에는 timeMapper로 올라감
 				2> Mapper 는 Java , Xml 두가지형태로 SQL 수가 적을경우 JAVA, 많을경우 XML 추천
 					<1>JAVA
 						-Mapper 패키지생성
@@ -370,8 +378,21 @@
 					    <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
 					    <version>1.16</version>
 					</dependency>
-				2> 책참조
-
+				2> root-context
+					-다음과같이 바꿈
+					<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+						<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+						<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"></property>
+						<property name="username" value="SPRING"></property>
+						<property name="password" value="java"></property>
+					</bean>
+				3> resource 에 다음파일추가
+				 	파일명 : log4jdbc.log4j2.properties
+					내용 : log4jdbc.spylogdelegator.name=net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
+					
+				4> 원치않을시 삭제
+					위 순서대로 삭제 
+					
 				
 					
 
