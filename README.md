@@ -29,21 +29,21 @@
 
 
 # 스프링 설정
-	1. 개발툴 설치
+### 개발툴 설치
 		스프링 개발 STS(Spring Tool Suite)이나 Eclipse+Spring Plugin 으로 사용
 		Eclipse => help탭 - Install new software => https://spring.io/tools3/sts/all/ 에서 update Sites Eclipse 버젼 확인후 다운로드
 	
-	2. WorkSpace UTF-8 설정
+### WorkSpace UTF-8 설정
 		자바 , jsp 개발 코딩마다 인코딩이 달라서 문제가 될 수 있기 때문에 미리 Workspace 의 인코딩을 변경해줌
 		Window -> Preferences-> General -> Workspace , Text file encoding 변경
 		Web 탭 -> CSS ,HTML, JSP 모두 인코딩 변경
 	
-	3. 톰캣 
+### 톰캣 
 		-http://tomcat.apache.org/whichversion.html 보면 8버젼은 톰캣9 쓰라고 되어있음
 		-다운로드 https://tomcat.apache.org/download-90.cgi
 		이클립스에서 서버 추가할때 다운받은 경로 넣어주고 생성
 	
-	4. 프로젝트 구성 및 생성
+### 프로젝트 구성 및 생성
 		-Spring Legacy Project -> Spring MVC Project 로 생성
 		-src/main/java : 기본 코드경로
 		-src/main/resources : 실행할때 참조하는 경로(주로 설정파일 넣음)
@@ -52,7 +52,7 @@
 		-web.xml : 톰캣 설정 파일
 		-pom.xml : Maven 설정
 
-	5. 프로젝트 기본설정
+### 프로젝트 기본설정
 		-오래된 버젼을 기본값을 가지고 있기 때문에 최신버젼으로 설정이 필요함
 		1) 스프링버젼 업그레이드
 			https://mvnrepository.com/ 에서 Spring Core 보면 최신버젼나와 있음
@@ -67,7 +67,7 @@
 		
 		3) 톰캣 절대경로 설정
 			프로젝트 속성 -Web Project Settings - Path를  / 로 바꿈
-	6. context 설정
+### context 설정
 		1)XML
 			(1) root-context.xml : bean(스프링 프레임워크에서 관리하는 객체)을 설정하는 파일
 				<1> nameSpaces 에서 context 추가
@@ -103,7 +103,7 @@
 					} //RootConfig.class로 rootContext.xml 대신하기때문에 이렇게 작성
 
 
-	7.Lombok 설치 
+### Lombok 설치 
 		Lombok : 컴파일 시 흔하게 코드를 작성하는 기능들을 완성해주는 라이브러리 => getter setter 같은 귀찮은 작업 해결
 		@Data : Lombok에서 가장 자주 사용됨
 			   @ToString, EqualsAndHashCode, @Getter/@Setter, @requiredArgsConstructor 
@@ -121,7 +121,7 @@
 				<scope>provided</scope>
 			</dependency>
 		
-	8. 몇가지 Maven 설정
+### 몇가지 Maven 설정
 		1) 스프링 테스트
 		
 		
@@ -134,7 +134,7 @@
 		</dependency>
 
 		3)Servlet 버젼 3버젼 이상으로 올리기(기존 2.5)
-	9. 테스트 
+### 테스트 
 		1)Maven 설정
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -163,7 +163,7 @@
 		* system : 명시적으로 해당 JAR를 포함하는 것이 제공되어야 한다는 것을 제외하고 provided와 유사함. artifact는 항상 사용가능하며 레파지토리에서 검색하지 않음.
 		* import (Maven 2.0.9 이후에서만 적용) : 이 영역은 <dependencyManagement>에서 pom의 의존관계에 대해서 사용됨. 지정된 POM이 해당 POM의 <dependencyManagement> 영역에 있는 의존관계로 대체됨을 의미함. 이것들이 대체되기 때문에 import 영역의 의존관계들은 실질적으로 의존에 대한 제약에 대해 관여하지 않음.
 
-	11.데이터베이스 설정
+### 데이터베이스 설정
 		1)오라클설치 : 책에서는 11g 사용 , System ,SYS계정 패스워드 , SID , 포트 중요, Sql Developer까지 설치
 		2)계정생성 :
 			(1)SQL : 
