@@ -1,14 +1,18 @@
 # SpringBaseProject
 
-스프링 기본 프로젝트
+#스프링 기본 프로젝트
 
--이클립스 UTF 8 설정 </br>
--LomBok 설치 </br>
--MyBatis 사용 </br>
--RootConfig 에서 DB 사용자 변경 </br>
--히카리 cp사용 </br>
+#깃 프로젝트 설정할것 
+	-Oracle 11g Express Edition 사용(일반판보다 간단함, Developer 설치해줘야함)
+	-이클립스 UTF 8 설정 </br>
+	-LomBok 설치 </br>
+	-MyBatis 사용 </br>
+	-RootConfig 에서 DB 사용자 변경 </br>
+	-히카리 cp사용 </br>
 
 
+
+--------------------------------------------------------------------------------------
 <Spring의 특징 및 의존성 주입>
 
 # 책들어가기전에 수업내용 몇개 추가
@@ -41,10 +45,8 @@
 	
 	4. 프로젝트 구성 및 생성
 		-Spring Legacy Project -> Spring MVC Project 로 생성
-		
 		-src/main/java : 기본 코드경로
 		-src/main/resources : 실행할때 참조하는 경로(주로 설정파일 넣음)
-
 		-sevlet-context.xml : 웹과 관련된 스프링 설정 파일(컨트롤러 설정)
 		-root-context.xml : 스프링 프레임워크에서 관리해야 하는 객체(bean)를 설정하는 설정 파일
 		-web.xml : 톰캣 설정 파일
