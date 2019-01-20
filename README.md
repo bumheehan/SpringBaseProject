@@ -5,6 +5,7 @@
 	-LomBok 설치 </br>
 	-MyBatis 사용 </br>
 	-히카리 cp사용 </br>
+	-Junit은 Maven 안하고 로컬추가
 ## 깃 프로젝트 설정할것 
 	-이클립스 UTF 8 설정 </br>
 	-RootConfig 에서 DB 사용자 변경 </br>
@@ -208,6 +209,8 @@
 			(2) datasource 설정 : XML , JAVA방식
 				-https://github.com/brettwooldridge/HikariCP 가면 설정 정보를 얻을 수 있음
 					주로 hikariconfig 빈만들고 datasource에 넣음
+				-DataSource는 DBCP를 이용하여 Connection을 얻을 수 있음
+				-밑에 MyBatis 에서 SqlSession은 이 DataSource를 가져갔기때문에 똑같이 Connection을 얻을 수 있음
 				1> root-context.xml
 					<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 						<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
@@ -270,10 +273,10 @@
 			(2) SQLSessionFactory
 				MyBatis에서 핵심적인객체는 SQLSession 과 SQLSessionFactory임
 				SQLSessionFactory로 SQLSession 생성
-				SQLSession으로 Connection 생성과 원하는 SQL 전달, 결과 리턴을 받음
-
+				SQLSession으로 Connection 생성(DataSource)과 원하는 SQL 전달, 결과 리턴을 받음
+				->즉 SQL Session은 DataSource에 Sql 기능 추가
 				1> root-context.xml 
-					<bean id="sqlSessionFactory" class="org.mybatis.spring.sqlSessionFactoryBean">
+					<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 						<property name="dataSource" ref="dataSource"></property>
 					</bean>
 				2> RootConfig 클래스
