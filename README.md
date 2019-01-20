@@ -72,7 +72,7 @@
 				<1> nameSpaces 에서 context 추가
 				<2> 컴포넌트 스캔위치 
 					<context:component-scan base-package="패키지주소">
-					</contextLcomponent-scan>
+					</context:component-scan>
 				<3> beans graph에서 생성된 bean 을 확인할 수 있음
 
 
@@ -125,12 +125,17 @@
 		
 		
 		2) Junit
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
+		
+			(1) Maven으로 할시 테스트중 Assert 클래스 임포트 안됨
+				패키지속성 - JAVA biuld path- add libraries - junit 4 선택 - 자동 4.12 버젼 설치됨
+				maven에서 junit 모두 지움
+			(2) Maven 으로 할 경우는 다음과 같음(난 안함)
+				<dependency>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+					<version>4.12</version>
+					<scope>test</scope>
+				</dependency>
 
 		3)Servlet 버젼 3버젼 이상으로 올리기(기존 2.5)
 ### 테스트 
