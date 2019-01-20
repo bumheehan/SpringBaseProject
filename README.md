@@ -1,14 +1,13 @@
 # SpringBaseProject
 
-#스프링 기본 프로젝트
-
-#깃 프로젝트 설정할것 
+# 스프링 기본 프로젝트
 	-Oracle 11g Express Edition 사용(일반판보다 간단함, Developer 설치해줘야함)
-	-이클립스 UTF 8 설정 </br>
 	-LomBok 설치 </br>
 	-MyBatis 사용 </br>
-	-RootConfig 에서 DB 사용자 변경 </br>
 	-히카리 cp사용 </br>
+## 깃 프로젝트 설정할것 
+	-이클립스 UTF 8 설정 </br>
+	-RootConfig 에서 DB 사용자 변경 </br>
 
 
 
