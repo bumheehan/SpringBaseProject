@@ -370,7 +370,6 @@
 				
 			(4) log4jdbc-log4j2 설정
 				PreparedStatement 에서 ? 로 처리하는데 ?의 값이 재대로 되었는지 확인하는 기능
-				나는 사용안함 사용할거면 102p 참조
 				1>Maven 
 					<!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4 -->
 					<dependency>
@@ -394,35 +393,32 @@
 					위 순서대로 삭제 
 					
 				
-					
-
-
-		
+						
 			
-#어노테이션 정리
+# 어노테이션 정리
 
-Sping
-@Autowired
-@Component : bean 설정
-@ComponentScan : rootConfig 에서 bean 등록할 곳 정의할때
-Spring-Test
-@Runwith(SpringJUnit4ClassRunner.class) : 테스트 코드가 스프링을 실행하는 역할을 할 것이라는 것을 표시 
-@ContextConfiguration("file:src/main/webapp/WEB-INF/Spring/root-context.xml") : 스프링 빈 등록(빈(객체)를 스프링 내에 객체로 등록)
-	자바일경우 @ContextConfiguration(classes={RootConfig.class})
-@Log4j : Lombok이용해서 로그를 기록하는 Logger를 변수로 생성
-@Test : JUnit에서 테스트할 대상을 표시
+## Sping
+	@Autowired
+	@Component : bean 설정
+	@ComponentScan : rootConfig 에서 bean 등록할 곳 정의할때
+	Spring-Test
+	@Runwith(SpringJUnit4ClassRunner.class) : 테스트 코드가 스프링을 실행하는 역할을 할 것이라는 것을 표시 
+	@ContextConfiguration("file:src/main/webapp/WEB-INF/Spring/root-context.xml") : 스프링 빈 등록(빈(객체)를 스프링 내에 객체로 등록)
+		자바일경우 @ContextConfiguration(classes={RootConfig.class})
+	@Log4j : Lombok이용해서 로그를 기록하는 Logger를 변수로 생성
+	@Test : JUnit에서 테스트할 대상을 표시
 
-Lombok
-@Setter
-@Data
-@Log4j
-@ToString
-@EqualsAndHashCode
-@RequiredArgsConstructor : class - @NonNull : member : @NonNull인 member로 생성자를 만듦
-@AllArgsConstructor : 모든 Member로 생성자 만듦
+## Lombok
+	@Setter
+	@Data
+	@Log4j
+	@ToString
+	@EqualsAndHashCode
+	@RequiredArgsConstructor : class - @NonNull : member : @NonNull인 member로 생성자를 만듦
+	@AllArgsConstructor : 모든 Member로 생성자 만듦
 
-MyBatis 
-@Select("select쿼리")
+## MyBatis 
+	@Select("select쿼리")
 
 
 # Dependency Injection : 디자인패턴에 나옴,
@@ -484,6 +480,29 @@ MyBatis
 		2. @Configuration/ WebMvcConfigurationSupport Class를 상속하는 방식 
 			- > 일반 @Gonfiguration 우선 순위가 구분되지 않는 경우 사용
 	- web은 Tomcat 구동과 관련된 설정, 나머지 두 파일은 스프링과 관련된 설정
+
+# Spring Mapper,Service,Controller
+
+## Controller
+1. Annotation 
+	1)URL Mapping
+		@RequestMapping(value="/",method={RequestMethod.GET,RequestMethod.POST})	
+		@GetMapping
+		@PostMapping
+	2)Parameter
+		@RequestParam("getName") dataType id: 파라메터명과 사용하는 식별자명이 다를 경우 사용
+		@InitBinder : 데이터받안온것을 다른데이터형식으로 바꿔서 넣고싶을때 사용(ex 2019-01-01 String을 Date형식으로 바꿀때)
+		@DateTimeFormat : InitBinder같은기능인데 날짜만가능
+2. Binding (파라메터 수집)
+	1) 자동 파라메터 받아오기 기능 
+		-DTO 생성자로 자동 입력해서 DTO만 출력받을 수 있다.
+		-기본형은 파라메터받고 Respose 로 가지 않음 , 참조형은 다음 페이지까지 파라메터 전송
+			ex :get : num=10&str=aa
+		-같은 이름의 데이터가 여러개 들어올 경우 ArrayList로 받기가능
+			ex :get : ids=10&ids=15&ids=20
+			   :@RequestParam("ids") ArrayList<Integer> ids
+			   :@RequestParam("ids") Integer[] ids	 (배열도 가능)
+	
 
 # Spring MVC Contoller
 	1. 특징
