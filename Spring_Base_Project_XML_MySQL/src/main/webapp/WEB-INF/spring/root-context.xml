@@ -19,7 +19,7 @@
 			<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
 			
 			<!--  XML 에서는 &쓸려면  &amp; 이렇게 써야함 -->
-			<property name="jdbcUrl" value="jdbc:log4jdbc:mysql://127.0.0.1:3306/minigame?useSSL=false&amp;serverTimezone=UTC"></property>
+			<property name="jdbcUrl" value="jdbc:log4jdbc:mysql://127.0.0.1:3306/minigame?serverTimezone=UTC"></property>
 			<property name="username" value="Spring"></property> <!-- 대소문자 가림 -->
 			<property name="password" value="java"></property>
 		</bean>
