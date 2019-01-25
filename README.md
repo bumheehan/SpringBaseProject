@@ -2,20 +2,20 @@
 
 # 스프링 기본 프로젝트
 	-Oracle 11g Express Edition 사용(일반판보다 간단함, Developer 설치해줘야함)
-	-LomBok 설치 </br>
-	-MyBatis 사용 </br>
-	-히카리 cp사용 </br>
+	-LomBok 설치 
+	-MyBatis 사용 
+	-히카리 cp사용 
 	-Junit은 Maven 안하고 로컬추가
 ## 깃 프로젝트 설정할것 
-	-이클립스 UTF 8 설정 </br>
-	-RootContext(RootConfig) 에서 DB 사용자 변경 </br>
-	-기본 테스트용 TimeMapper와 homeController가 있음 삭제 후 사용 </br>
+	-이클립스 UTF 8 설정
+	-RootContext(RootConfig) 에서 DB 사용자 변경 
+	-기본 테스트용 TimeMapper와 homeController가 있음 삭제 후 사용 
 	-모든 패키지 삭제후 사용
 		-> 몇가지 예제로 넣어둔거임
-	-프로젝트 속성 -Web Project Settings - Path를  / 로 바꿈 </br>
+	-프로젝트 속성 -Web Project Settings - Path를  / 로 바꿈 
 	-JUnit 테스트로 datasource 확인
 	-log4jdbc를 원치않을경우 아래 스프링설정 관련 태그 가기
-
+	-ResponseBody로 Json을 내보내기 하지 않는 경우 Maven에서 Jackson-databind를 제거
 
 
 --------------------------------------------------------------------------------------
@@ -84,6 +84,14 @@
 
 
 		2)JAVA
+			- root-context.xml 대신 RootConfig.java
+			  web-context.xml 대신 WebConfig.java 를 생성해줌
+			  servlet-context.xml 대신 ServletConfig.java 
+				1. @EnableWebMvc/ WebMvcConfigurer 인터페이스를 구현하는 방식
+				2. @Configuration/ WebMvcConfigurationSupport Class를 상속하는 방식 
+					- > 일반 @Configuration 우선 순위가 구분되지 않는 경우 사용
+			- web은 Tomcat 구동과 관련된 설정, 나머지 두 파일은 스프링과 관련된 설정
+
 			(1)xml 삭제 : sevlet-context.xml,root-context.xml,web.xml 삭제
 			(2)web.xml 삭제시 에러발생(xml로 하기로되어있어서 없다는것을 알려줘야함) : pom.xml에 다음추가
 				<plugin>
@@ -108,6 +116,7 @@
 						return new Class[] {RootConfig.class};
 					} //RootConfig.class로 rootContext.xml 대신하기때문에 이렇게 작성
 
+	
 
 ### Lombok 설치 
 		Lombok : 컴파일 시 흔하게 코드를 작성하는 기능들을 완성해주는 라이브러리 => getter setter 같은 귀찮은 작업 해결
@@ -128,10 +137,20 @@
 			</dependency>
 		
 ### 몇가지 Maven 설정
-		1) 스프링 테스트
-		
-		
-		2) Junit
+		Maven을 이용한 라이브러리는 사용자폴더 .m2폴더 repository에 저장됨
+		Maven 다운받다 오류날때 두가지방법
+			1) .m2폴더에서 해당라이브러리 삭제
+			2) 강제업데이트 alt+f5누르고 force update of snapshots/releases
+
+
+		Maven - scope
+	* compile : 기본영역으로 아무것도 지정되지 않은 경우 사용됨. compile 의존관계에 있는 것은 프로젝트의 모든 클래스에서 사용가능함. 또한, 이와 같은 의존관계는 의존관계에 있는 프로젝트에 포함됨.
+	* provided : compile 과 매우 유사히지만, 실행시 의존관계를 제공하는 JDK나 컨테이너에 대해서 적용됨. 예를 들어, JEE에 대한 웹 어플리케이션을 만드는 경우, 웹 컨테이너가 서블릿 API와 Java EE API관련 클래스들을 제공하기 때문에 provided 영역으로 의존관계가 세팅되어야 함. 이 영역은 컴파일과 테스트의 클래스패스 용으로 사용되며, 자동영역임.
+	* runtime : 의존관계가 컴파일시 필요하지 않지만, 실행시 필요함을 의미함. 실행시와 테스트 클래스패스에 속하지만, 컴파일 클래스패스에는 속하지 않음.
+	* test : 일반적인 어플리케이션 사용에 대해서는 의존관계가 필요없고, 테스트 컴파일과 실행 시점에만 사용됨.
+	* system : 명시적으로 해당 JAR를 포함하는 것이 제공되어야 한다는 것을 제외하고 provided와 유사함. artifact는 항상 사용가능하며 레파지토리에서 검색하지 않음.
+	* import (Maven 2.0.9 이후에서만 적용) : 이 영역은 <dependencyManagement>에서 pom의 의존관계에 대해서 사용됨. 지정된 POM이 해당 POM의 <dependencyManagement> 영역에 있는 의존관계로 대체됨을 의미함. 이것들이 대체되기 때문에 import 영역의 의존관계들은 실질적으로 의존에 대한 제약에 대해 관여하지 않음.
+		1) Junit
 		
 			(1) Maven으로 할시 테스트중 Assert 클래스 임포트 안됨
 				패키지속성 - JAVA biuld path- add libraries - junit 4 선택 - 자동 4.12 버젼 설치됨
@@ -144,7 +163,7 @@
 					<scope>test</scope>
 				</dependency>
 
-		3)Servlet 버젼 3버젼 이상으로 올리기(기존 2.5)
+		2)Servlet 버젼 3.1.0버젼 이상으로 올리기(기존 2.5)
 ### 테스트 
 		1)Maven 설정
 			<dependency>
@@ -160,19 +179,7 @@
 
 			(4)@Test : JUnit에서 테스트할 대상을 표시
 
-	Maven을 이용한 라이브러리는 사용자폴더 .m2폴더 repository에 저장됨
-	Maven 다운받다 오류날때 두가지방법
-		1) .m2폴더에서 해당라이브러리 삭제
-		2) 강제업데이트 alt+f5누르고 force update of snapshots/releases
 	
-	
-	Maven - scope
-		* compile : 기본영역으로 아무것도 지정되지 않은 경우 사용됨. compile 의존관계에 있는 것은 프로젝트의 모든 클래스에서 사용가능함. 또한, 이와 같은 의존관계는 의존관계에 있는 프로젝트에 포함됨.
-		* provided : compile 과 매우 유사히지만, 실행시 의존관계를 제공하는 JDK나 컨테이너에 대해서 적용됨. 예를 들어, JEE에 대한 웹 어플리케이션을 만드는 경우, 웹 컨테이너가 서블릿 API와 Java EE API관련 클래스들을 제공하기 때문에 provided 영역으로 의존관계가 세팅되어야 함. 이 영역은 컴파일과 테스트의 클래스패스 용으로 사용되며, 자동영역임.
-		* runtime : 의존관계가 컴파일시 필요하지 않지만, 실행시 필요함을 의미함. 실행시와 테스트 클래스패스에 속하지만, 컴파일 클래스패스에는 속하지 않음.
-		* test : 일반적인 어플리케이션 사용에 대해서는 의존관계가 필요없고, 테스트 컴파일과 실행 시점에만 사용됨.
-		* system : 명시적으로 해당 JAR를 포함하는 것이 제공되어야 한다는 것을 제외하고 provided와 유사함. artifact는 항상 사용가능하며 레파지토리에서 검색하지 않음.
-		* import (Maven 2.0.9 이후에서만 적용) : 이 영역은 <dependencyManagement>에서 pom의 의존관계에 대해서 사용됨. 지정된 POM이 해당 POM의 <dependencyManagement> 영역에 있는 의존관계로 대체됨을 의미함. 이것들이 대체되기 때문에 import 영역의 의존관계들은 실질적으로 의존에 대한 제약에 대해 관여하지 않음.
 
 ### 데이터베이스 설정
 		1)오라클설치 : 책에서는 11g 사용 , System ,SYS계정 패스워드 , SID , 포트 중요, Sql Developer까지 설치
@@ -462,29 +469,16 @@
 	3) @Param을 이용해서 이름을 사용
 		 #{}
 
-# JAVA 설정을 이용하는 경우
-	- web.xml, servlet-context.xml, root-context.xml 을 제거
-	- pom.xml에서 web.xml이 없다는 설정을 추가해야 한다.
-		 <plugin>
-		    <groupId>org.apache.maven.plugins</groupId>
-		    <artifactId>maven-war-plugin</artifactId>
-		    <version>3.2.0</version>
-		    <configuration>
-			<failOnMissingWebXml>false</failOnMissingWebXml>
-		    </configuration>
-		 </plugin>
-	- root-context.xml 대신 RootConfig.java
-	  web-context.xml 대신 WebConfig.java 를 생성해줌
-	  servlet-context.xml 대신 ServletConfig.java 
-		1. @EnableWebMvc/ WebMvcConfigurer 인터페이스를 구현하는 방식
-		2. @Configuration/ WebMvcConfigurationSupport Class를 상속하는 방식 
-			- > 일반 @Gonfiguration 우선 순위가 구분되지 않는 경우 사용
-	- web은 Tomcat 구동과 관련된 설정, 나머지 두 파일은 스프링과 관련된 설정
 
 # Spring Mapper,Service,Controller
 
-## Controller
-1. Annotation 
+## Spring MVC Contoller
+	1. 특징
+		- HttpServletRequest, HttpServletResponse 를 거의 사용할 필요 없이 필요한 기능 구현
+		- 다양한 타입의 파라미터 처리, 다양한 타입의 리턴 타입 사용 가능
+		- get, post 등 전송 방식에 대한 처리를 어노테이션으로 가능
+		- 상속/인터페이스 대신에 어노테이션만으로도 필요한 설정 가능
+### Annotation 
 	1)URL Mapping
 		@RequestMapping(value="/",method={RequestMethod.GET,RequestMethod.POST})	
 		@GetMapping
@@ -493,32 +487,31 @@
 		@RequestParam("getName") dataType id: 파라메터명과 사용하는 식별자명이 다를 경우 사용
 		@InitBinder : 데이터받안온것을 다른데이터형식으로 바꿔서 넣고싶을때 사용(ex 2019-01-01 String을 Date형식으로 바꿀때)
 		@DateTimeFormat : InitBinder같은기능인데 날짜만가능
-2. Binding (파라메터 수집)
+		@ModelAttribute : 받은 데이터를 기본형일지라도 다음페이지에 전달 
+### Binding (파라메터 수집)
 	1) 자동 파라메터 받아오기 기능 
 		-DTO 생성자로 자동 입력해서 DTO만 출력받을 수 있다.
 		-기본형은 파라메터받고 Respose 로 가지 않음 , 참조형은 다음 페이지까지 파라메터 전송
-			ex :get : num=10&str=aa
+			ex :get : num=10&str=aa , num은 기본형 aa는 참조형(문자열)
 		-같은 이름의 데이터가 여러개 들어올 경우 ArrayList로 받기가능
 			ex :get : ids=10&ids=15&ids=20
 			   :@RequestParam("ids") ArrayList<Integer> ids
 			   :@RequestParam("ids") Integer[] ids	 (배열도 가능)
 	
 
-# Spring MVC Contoller
-	1. 특징
-		- HttpServletRequest, HttpServletResponse 를 거의 사용할 필요 없이 필요한 기능 구현
-		- 다양한 타입의 파라미터 처리, 다양한 타입의 리턴 타입 사용 가능
-		- get, post 등 전송 방식에 대한 처리를 어노테이션으로 가능
-		- 상속/인터페이스 대신에 어노테이션만으로도 필요한 설정 가능
-
-# Controller의 리턴 타입
+### Controller의 리턴 타입
 	1. String : jsp를 이용하는 경우에는 jsp 파일의 경로와 파일이름을 나타내기 위해서 사용
 		- redirect : 리다이렉트 방식으로 처리하는 경우
 		- forward : 포워드 방식으로 처리하는 경우
-	2. void : 호출하는 url과 동일한 이름의 jsp를 의미
-		- jackson-databind 라이브러리를 pom.xml에 추가
-
+	2. void : 메소드명.jsp로 이동
 	3. vo, dto : 주로 json 타입의 데이터를 만들어서 반환하는 용도로 사용
+		- jackson-databind 라이브러리를 pom.xml에 추가
+			<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+			<dependency>
+			    <groupId>com.fasterxml.jackson.core</groupId>
+			    <artifactId>jackson-databind</artifactId>
+			    <version>2.9.8</version>
+			</dependency>
 	4. ResponseEntity : response 할 때 Http 헤더 정보와 내용을 가용하는 용도로 사용
 	5. Model, ModelAndView : Model로 데이터를 반환하거나 화면까지 같이 지정하는 경우에 사용(최근에는 많이 x)
 	6. HttpHeaders : 응답에 내용 없이 Http 헤더 메시지만 전달하는 용도로 사용
