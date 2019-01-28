@@ -497,7 +497,6 @@
 			ex :get : ids=10&ids=15&ids=20
 			   :@RequestParam("ids") ArrayList<Integer> ids
 			   :@RequestParam("ids") Integer[] ids	 (배열도 가능)
-	
 
 ### Controller의 리턴 타입
 	1. String : jsp를 이용하는 경우에는 jsp 파일의 경로와 파일이름을 나타내기 위해서 사용
@@ -524,19 +523,23 @@
 		    <artifactId>commons-fileupload</artifactId>
 		    <version>1.3.3</version>
 		</dependency>
-	2. - maxUploadSize : 한 번의 Request로 전달될 수 있는 최대의 크기(최대업로드 가능한 바이트크기)
+	2. Servlet-context.xml에 multipartResolver 추가
+		
+	   - maxUploadSize : 한 번의 Request로 전달될 수 있는 최대의 크기(최대업로드 가능한 바이트크기)
 	   - maxUploadSizePerFile : 하나의 파일 최대 크기
-	   - mzxInMemorySize : 메모리상에서 유지하는 최대의 크기
+	   - maxInMemorySize : 메모리상에서 유지하는 최대의 크기
 					-> 이 이상의 데이터는 uploadTempDir에 임시 파일 형태로 보관
 	   - defaultEncoding : 업로드하는 파일의 이름이 한글일 경우 깨지는 문제를 처리
-
+	3. form에 enctype="multipart/form-data" 추가
+	
 # Controller의 Exception 처리
 	1. @ExceptionHandler :  해당 메소드가 () 들어가는 예외 타입을 처리한다는 것을 의미
 					속성으로는 Exception 클래스 타입을 지정할 수 있다.
 					ex ) @ExceptionHandler(Exception.class)
 	   @ControllerAdvice : 해당 객체가 스프링의 컨트롤러에서 발생하는 예외를 처리하는 존재임을 명시하는 용도
 	2.. @ResponseEntity를 이용하는 예외 메세지 구성
-
+	
+	3. 처리방법은 책 154p
 # Naming Convevntion(명명 규칙)
 	1. -Controller : 스프링 mvc에서 동작하는 Controller 클레스를 설계할 때 사용
 	2. -Service, -ServiceImpl : 비즈니스 영역을 담당하는 인터페이스는 '-Service'를 사용
