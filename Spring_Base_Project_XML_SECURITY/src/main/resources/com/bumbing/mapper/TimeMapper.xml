@@ -4,8 +4,8 @@
 
 <mapper namespace="com.bumbing.mapper.TimeMapper">
 	
-	<select id="getTime">
-		select sysdate from dual;
+	<select id="getTime2" resultType="string">
+		select sysdate from dual
 	</select>
 	<!-- 
 	<resultMap type="org.apache.ibatis.submitted.rounding.User" id="usermap">

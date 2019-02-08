@@ -48,8 +48,7 @@
 
 		<security:logout logout-url="/customLogout"
 			invalidate-session="true" delete-cookies="remember-me,JSESSION_ID" />
-
-
+			
 	</security:http>
 
 	<!--  유저 서비스와 암호화 빈을 프로바이더에 정의 -->
