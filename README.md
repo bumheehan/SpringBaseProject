@@ -73,6 +73,9 @@
 		
 		3) 톰캣 절대경로 설정
 			프로젝트 속성 -Web Project Settings - Path를  / 로 바꿈
+			
+			-서버 생성할때 root 잡히는데 그때 프로젝트 root경로로 생성 (절대경로 바꾸기전에 서버생성하면 그걸로 반영,서버에서 변경해야함)
+			
 ### context 설정
 		1)XML
 			(1) root-context.xml : bean(스프링 프레임워크에서 관리하는 객체)을 설정하는 파일
